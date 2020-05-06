@@ -6,7 +6,7 @@ class baseController
     {
 
         //Aca poner los datos
-        
+
         $dbPwd = "";
         $dbUser = "";
         $dbServer = "";
