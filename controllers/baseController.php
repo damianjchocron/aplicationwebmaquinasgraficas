@@ -5,10 +5,12 @@ class baseController
     public static function connect()
     {
 
-        $dbPwd = "3xPoeJ8pSI";
-        $dbUser = "damian";
-        $dbServer = "54.36.98.69";
-        $dbName = "damian_noticias";
+        //Aca poner los datos
+        
+        $dbPwd = "";
+        $dbUser = "";
+        $dbServer = "";
+        $dbName = "";
 
         $connection = new PDO("mysql:host=$dbServer;dbname=$dbName", $dbUser, $dbPwd);
 
