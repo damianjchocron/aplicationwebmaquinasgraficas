@@ -10,7 +10,7 @@ class baseController
         $dbUser = "";
         $dbServer = "";
         $dbName = "";
->>>>>>> 7d42d9d7e2e4da84747a38c540d55ebb47b116b8
+
 
         $connection = new PDO("mysql:host=$dbServer;dbname=$dbName", $dbUser, $dbPwd);
 
