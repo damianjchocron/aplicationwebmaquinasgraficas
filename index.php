@@ -51,6 +51,9 @@ session_start();
     <?php if (isset($_GET["action"]) && $_GET["action"] == "modify") : ?>
         <script src="<?php echo URL_BASE; ?>js/jsmodalimagenesmodify.js" type="text/javascript"></script>
     <?php endif; ?>
+    <?php if (isset($_GET["action"]) && $_GET["action"] == "insertform") : ?>
+        <script src="<?php echo URL_BASE; ?>js/insertform.js" type="text/javascript"></script>
+    <?php endif; ?>
 
 </body>
 

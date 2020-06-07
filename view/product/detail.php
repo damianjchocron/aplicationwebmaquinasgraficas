@@ -1,6 +1,6 @@
 <?php require_once "config/config.php"; ?>
 <div class="row">
-  <div class="col-xl-6 mb-3">
+  <div class="col-xl-6 mb-3 mt-3">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
         <?php foreach ($forrenderimg as $value) : ?>
@@ -21,7 +21,7 @@
       </a>
     </div>
   </div>
-  <div class="col-xl-6">
+  <div class="col-xl-6 mb-3">
     <ul class="list-group list-group-flush">
       <?php foreach ($forrenderinfo as $value) : ?>
         <li class="list-group-item"><?php echo $value ?></li>

@@ -141,7 +141,7 @@ class productController extends baseController
             foreach ($_FILES as $key => $value) {
                 echo $key;
                 $url = $directory . "/" . $value['name'];
-                $upload = $this->upload($value['name'], $key, "$directory", array("image/jpeg", "image/png", "image/gif"));
+                $upload = $this->upload($value['name'], $key, $directory, array("image/jpeg", "image/png", "image/gif"));
                 $priority = "0";
                 if ($key == "image") $priority = "1";
                 $productdatainstance->insertarmultimedia($directorynumber, $url, $priority);
