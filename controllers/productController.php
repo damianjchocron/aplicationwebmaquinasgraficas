@@ -97,12 +97,24 @@ class productController extends baseController
     function all()
     {
         $productdatainstace = new productdata();
-        $page = "0";
-        $pagination = "0";
-        if (isset($_GET["page"])) {
-            $page = $_GET["page"];
-            $pagination = 5 * $page;
-        }
+
+        //Para paginacion
+
+        //Consultar cuantos elementos hay en total
+        $page = 1;
+        if (isset($_GET["page"])) $page  =  $_GET["page"];
+        $cantidadtotalproductos = $productdatainstace->allforpagination();
+        $numRegisPos = 6; // Numero de objetos por pagina
+        $pos = ($page * $numRegisPos) - $numRegisPos;
+        $numCatTotal = count($cantidadtotalproductos); // Total objetos
+        $numPaginas = ceil($numCatTotal / $numRegisPos); // Con ceil redondea par arriba
+
+        $prev = 1;
+        if ($page > 1) $prev = $page - 1;
+
+        $next = $page;
+        if ($page < $numPaginas) $next = $page + 1;
+
         $idcategoria  = "";
         $sort = "1";
         $search = "";
@@ -111,7 +123,7 @@ class productController extends baseController
 
         if (isset($_GET["idcategoria"])) $idcategoria = $_GET["idcategoria"];
         if (isset($_GET["sort"])) $sort = $_GET["sort"];
-        $dataproductforrender = $productdatainstace->all($pagination, $idcategoria, $sort, $search);
+        $dataproductforrender = $productdatainstace->all($pos, $idcategoria, $sort, $search,$numRegisPos);
         $categoria = $productdatainstace->getcategoria();
 
         require_once "view/product/all.php";
@@ -119,9 +131,10 @@ class productController extends baseController
 
     function detail()
     {
+        $productdatainstace = new productdata();
+
         $idproduct = "";
         if (isset($_GET["idproduct"])) $idproduct = $_GET["idproduct"];
-        $productdatainstace = new productdata();
         $forrenderinfo = $productdatainstace->getdetail($idproduct); //HACER VARDUMP??
         $forrenderimg = $productdatainstace->getimgdetail($idproduct);
 

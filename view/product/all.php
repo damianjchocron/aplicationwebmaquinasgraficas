@@ -40,10 +40,10 @@ $urlact = $_SERVER["REQUEST_URI"];
             </div>
         </div>
     </div>
-    <?php if(isset($categoriaunica)):?>
-    <div>
-        <span class="badge badge-info"><?php echo $categoriaunica["0"]->nombrecategoria; ?> </span>
-    </div>
+    <?php if (isset($categoriaunica)) : ?>
+        <div>
+            <span class="badge badge-info"><?php echo $categoriaunica["0"]->nombrecategoria; ?> </span>
+        </div>
     <?php endif; ?>
     <form action="<?php echo URL_BASE ?>product/all" method="POST">
         <div class="input-group col-xl-11 m-3 aling-self-start">
@@ -59,15 +59,12 @@ $urlact = $_SERVER["REQUEST_URI"];
 
 <nav aria-label="Page navigation example" class="m-5">
     <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all" ?>">1</a></li>
-        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=1" ?>">2</a></li>
-        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=2" ?>">3</a></li>
-        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=3" ?>">4</a></li>
-        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=4" ?>">5</a></li>
-        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=5" ?>">6</a></li>
-        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=6" ?>">7</a></li>
-        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=7" ?>">8</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $prev ?>">Anterior</a></li>
+        <?php for ($i = 1; $i <= $numPaginas; $i++) : ?>
+            <?php $active = "" ?>
+            <?php if ($page == $i) $active = "active" ?>
+            <li class="page-item <?php echo $active ?>"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $i ?>"><?php echo $i ?></a></li>
+        <?php endfor ?>
+        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $next ?>">Siguiente</a></li>
     </ul>
 </nav>

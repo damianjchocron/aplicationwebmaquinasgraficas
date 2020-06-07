@@ -7,6 +7,22 @@ require_once "models/product/img.php";
 
 class productdata extends baseController
 {
+    public function allforpagination()
+    {
+        $array = [];
+        $conexion = $this->connect();
+        $query = <<<EOD
+        SELECT * FROM product
+        JOIN multimedia
+        ON product.idproduct = multimedia.idproduct
+        WHERE multimedia.priority  = 1 
+        AND titulo  != ""
+        EOD;
+        $result = $conexion->query($query);
+        $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+       
+        return $rows;
+    }
     function deleteimg($idmultimedia)
     {
         $conexion = $this->connect();
@@ -98,7 +114,7 @@ class productdata extends baseController
         return $array;
     }
 
-    function all($pagination = "", $idcategoria = "", $sort = "", $search = "")
+    function all($pagination = "", $idcategoria = "", $sort = "", $search = "", $numRegisPos = 0)
     {
         $filtercampoOrden = "";
         if (!empty($sort)) {
@@ -121,7 +137,7 @@ class productdata extends baseController
         }
         $filterpagination = "";
         if (!empty($pagination) | $pagination == "0") {
-            $filterpagination = " LIMIT $pagination , 6 ";
+            $filterpagination = " LIMIT $pagination , $numRegisPos ";
         }
         $filtersearch = "";
         if (!empty($search)) $filtersearch = " AND titulo LIKE '%" . $search . "%' ";
@@ -137,11 +153,13 @@ class productdata extends baseController
         JOIN categoria
         ON product.idcategoria = categoria.idcategoria
         WHERE multimedia.priority  = 1
+        AND titulo  != ""
         $filtercategoria
         $filtersearch
         $filtercampoOrden
         $filterpagination;        
         EOD;
+        //Ver $query
         $result = $conexion->query($query);
         $rows = $result->fetchAll(PDO::FETCH_ASSOC);
         if (count($rows) > 0) {
@@ -256,6 +274,7 @@ class productdata extends baseController
         ;
         EOD;
         $result = $conexion->query($query);
+        return true;
     }
 
     function getmaxid()

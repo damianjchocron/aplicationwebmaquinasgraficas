@@ -21,11 +21,7 @@
       </a>
     </div>
   </div>
-<<<<<<< HEAD
   <div class="col-xl-6 mb-3">
-=======
-  <div class="col-xl-6">
->>>>>>> 7d42d9d7e2e4da84747a38c540d55ebb47b116b8
     <ul class="list-group list-group-flush">
       <?php foreach ($forrenderinfo as $value) : ?>
         <li class="list-group-item"><?php echo $value ?></li>
