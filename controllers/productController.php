@@ -98,33 +98,58 @@ class productController extends baseController
     {
         $productdatainstace = new productdata();
 
-        //Para paginacion
 
-        //Consultar cuantos elementos hay en total
         $page = 1;
-        if (isset($_GET["page"])) $page  =  $_GET["page"];
-        $cantidadtotalproductos = $productdatainstace->allforpagination();
-        $numRegisPos = 6; // Numero de objetos por pagina
-        $pos = ($page * $numRegisPos) - $numRegisPos;
-        $numCatTotal = count($cantidadtotalproductos); // Total objetos
-        $numPaginas = ceil($numCatTotal / $numRegisPos); // Con ceil redondea par arriba
-
-        $prev = 1;
-        if ($page > 1) $prev = $page - 1;
-
-        $next = $page;
-        if ($page < $numPaginas) $next = $page + 1;
-
+        $filterpage = "";
         $idcategoria  = "";
         $sort = "1";
         $search = "";
+        $forDropDown = "Ordenar Por";
+        $filtersort = "";
+        $filtercategory = "";
 
         if (isset($_POST["search"])) $search = $_POST["search"];
 
-        if (isset($_GET["idcategoria"])) $idcategoria = $_GET["idcategoria"];
-        if (isset($_GET["sort"])) $sort = $_GET["sort"];
-        $dataproductforrender = $productdatainstace->all($pos, $idcategoria, $sort, $search,$numRegisPos);
-        $categoria = $productdatainstace->getcategoria();
+        if (isset($_GET["idcategoria"])) {
+            $idcategoria = $_GET["idcategoria"];
+
+            //Para Filtro Categoria
+            $filtercategory = "&idcategoria=" . $_GET["idcategoria"];
+            $forDropDown =  "";
+            $categoriaunica = $productdatainstace->getcategoria($idcategoria);
+        } 
+        if (isset($_GET["sort"])) {
+            $sort = $_GET["sort"];
+            $filtersort = "&sort=" . $_GET["sort"]; //Para filtro Sort 
+        }
+
+        if (isset($_GET["page"])){
+            $page  =  $_GET["page"];
+            $filterpage = "&page=" . $_GET["page"]; //Para filtro page
+        }
+
+        $numRegisPos = 6; // Numero de objetos por pagina
+        $pos = ($page * $numRegisPos) - $numRegisPos;
+
+        /* Aca viene una Query que pregunte cuantos elementos total
+         me trae de el registro no por paginas con todos los filtros ya*/
+        $queryWithTotal = $productdatainstace->allforpagination($idcategoria,$search);
+        $dataproductforrender = $productdatainstace->all($pos, $idcategoria, $sort, $search, $numRegisPos); //Se usa en la vista
+        $numCatTotal = count($queryWithTotal); // Total objetos
+
+
+        ///ME quede laburando aca me falla el recuento para la cantidad de paginas !!!
+        //////////////////////////
+
+
+        $numPaginas = ceil($numCatTotal / $numRegisPos); // Con ceil redondea par arriba
+        $prev = 1;
+        if ($page > 1) $prev = $page - 1;
+        $next = $page;
+        if ($page < $numPaginas) $next = $page + 1;
+
+        $categoria = $productdatainstace->getcategoria(); //Se usa en la vista
+
 
         require_once "view/product/all.php";
     }

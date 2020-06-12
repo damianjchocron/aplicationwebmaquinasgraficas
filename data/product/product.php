@@ -7,8 +7,14 @@ require_once "models/product/img.php";
 
 class productdata extends baseController
 {
-    public function allforpagination()
+    public function allforpagination($idcategoria, $search)
     {
+        $filterQueryCategoria = "";
+        $filterQuerySearch = "";
+
+        if(!empty($idcategoria)) $filterQueryCategoria =  " AND idcategoria = $idcategoria "; 
+        if(!empty($search)) $filterQuerySearch = " AND product.titulo LIKE $search ";
+        
         $array = [];
         $conexion = $this->connect();
         $query = <<<EOD
@@ -17,12 +23,15 @@ class productdata extends baseController
         ON product.idproduct = multimedia.idproduct
         WHERE multimedia.priority  = 1 
         AND titulo  != ""
+        $filterQueryCategoria
+        $filterQuerySearch
         EOD;
         $result = $conexion->query($query);
         $rows = $result->fetchAll(PDO::FETCH_ASSOC);
        
         return $rows;
     }
+
     function deleteimg($idmultimedia)
     {
         $conexion = $this->connect();
@@ -31,6 +40,7 @@ class productdata extends baseController
         EOD;
         $result = $conexion->query($query);
     }
+
     function allimg ()
     {
         $conexion = $this->connect();
@@ -59,6 +69,7 @@ class productdata extends baseController
         return $array;
       
     }
+
     function deleteData($idproductdelete)
     {
         $conexion = $this->connect();
@@ -68,6 +79,7 @@ class productdata extends baseController
         EOD;
         $result = $conexion->query($query);
     }
+
     function modifyData($idproduct, $titulo, $descripcion, $precio, $idcategoria)
     {
         $conexion = $this->connect();
@@ -83,6 +95,8 @@ class productdata extends baseController
         $result = $conexion->query($query);
     }
 
+
+    //Ver si esta query la puedo meter en la ALL !!! y BORRAR
     function search($search, $pagination)
     {
         $array = [];

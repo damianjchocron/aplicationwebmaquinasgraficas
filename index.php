@@ -13,10 +13,22 @@ session_start();
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Equipamiento Grafico</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" id="viewportMeta">
+    <meta name="description" content="Venta de maquinas graficas"/>
+    <meta name="keywords" content="" />
+    <meta name="author" content="Damian Jose Chocron Martinez" />
+
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    
+
+    <!-- <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any"> -->
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="<?php echo URL_BASE; ?>css.css">

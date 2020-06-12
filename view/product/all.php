@@ -1,18 +1,5 @@
 <?php
 require_once "config/config.php";
-$productdatainstance = new productdata();
-$filtercategory = "";
-$sort = "";
-$forDropDown = "Ordenar Por";
-if (isset($_GET["idcategoria"])) {
-    $idcategory = $_GET["idcategoria"];
-    $filtercategory = "&idcategoria=" . $_GET["idcategoria"];
-    $forDropDown =  "";
-    $categoriaunica = $productdatainstance->getcategoria($idcategory);
-}
-if (isset($_GET["sort"])) $sort = "&sort=" . $_GET["sort"];
-$urlact = $_SERVER["REQUEST_URI"];
-
 ?>
 
 
@@ -24,7 +11,8 @@ $urlact = $_SERVER["REQUEST_URI"];
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <?php foreach ($categoria as $value) : ?>
-                    <a class="dropdown-item" href="<?php echo URL_BASE . "product/all&idcategoria=" . $value->idcategoria . $sort ?>"><?php echo $value->nombrecategoria ?></a>
+                    <!-- Aca en los href van los FILTROS  -->
+                    <a class="dropdown-item" href="<?php echo URL_BASE . "product/all&idcategoria=" . $value->idcategoria . $filtersort . $filterpage ?>"><?php echo $value->nombrecategoria ?></a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -33,10 +21,11 @@ $urlact = $_SERVER["REQUEST_URI"];
                 Ordenar Por
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="<?php echo URL_BASE . "product/all&sort=1" . $filtercategory ?>">Mas Reciente</a>
-                <a class="dropdown-item" href="<?php echo URL_BASE . "product/all&sort=2" . $filtercategory ?>">Mas Antiguo</a>
-                <a class="dropdown-item" href="<?php echo URL_BASE . "product/all&sort=3" . $filtercategory ?>">Mayor Precio</a>
-                <a class="dropdown-item" href="<?php echo URL_BASE . "product/all&sort=4" . $filtercategory ?>">Menor Precio</a>
+                <!-- Aca en los href van los FILTROS  -->
+                <a class="dropdown-item" href="<?php echo URL_BASE . "product/all&sort=1" . $filtercategory . $filterpage ?>">Mas Reciente</a>
+                <a class="dropdown-item" href="<?php echo URL_BASE . "product/all&sort=2" . $filtercategory . $filterpage ?>">Mas Antiguo</a>
+                <a class="dropdown-item" href="<?php echo URL_BASE . "product/all&sort=3" . $filtercategory . $filterpage ?>">Mayor Precio</a>
+                <a class="dropdown-item" href="<?php echo URL_BASE . "product/all&sort=4" . $filtercategory . $filterpage ?>">Menor Precio</a>
             </div>
         </div>
     </div>
@@ -59,12 +48,13 @@ $urlact = $_SERVER["REQUEST_URI"];
 
 <nav aria-label="Page navigation example" class="m-5">
     <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $prev ?>">Anterior</a></li>
+        <!-- Aca en los href van los FILTROS  -->
+        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $prev . $filtersort . $filtercategory ?>">Anterior</a></li>
         <?php for ($i = 1; $i <= $numPaginas; $i++) : ?>
             <?php $active = "" ?>
             <?php if ($page == $i) $active = "active" ?>
-            <li class="page-item <?php echo $active ?>"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $i ?>"><?php echo $i ?></a></li>
+            <li class="page-item <?php echo $active ?>"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $i . $filtersort . $filtercategory ?>"><?php echo $i ?></a></li>
         <?php endfor ?>
-        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $next ?>">Siguiente</a></li>
+        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $next . $filtersort . $filtercategory ?>">Siguiente</a></li>
     </ul>
 </nav>
