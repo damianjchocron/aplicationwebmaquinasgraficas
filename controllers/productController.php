@@ -107,23 +107,31 @@ class productController extends baseController
         $forDropDown = "Ordenar Por";
         $filtersort = "";
         $filtercategory = "";
+        $filtersearch = "";
 
-        if (isset($_POST["search"])) $search = $_POST["search"];
+        if (isset($_GET["search"])) {
+            $search = $_GET["search"];
+            $filtersearch = "&search = " . $_GET["search"];
+        } else {
+            if (isset($_POST["search"])) {
+                $search = $_POST["search"];
+                $filtersearch = "&search = " . $_POST["search"];
+            }
+        }
 
         if (isset($_GET["idcategoria"])) {
             $idcategoria = $_GET["idcategoria"];
-
             //Para Filtro Categoria
             $filtercategory = "&idcategoria=" . $_GET["idcategoria"];
             $forDropDown =  "";
             $categoriaunica = $productdatainstace->getcategoria($idcategoria);
-        } 
+        }
         if (isset($_GET["sort"])) {
             $sort = $_GET["sort"];
             $filtersort = "&sort=" . $_GET["sort"]; //Para filtro Sort 
         }
 
-        if (isset($_GET["page"])){
+        if (isset($_GET["page"])) {
             $page  =  $_GET["page"];
             $filterpage = "&page=" . $_GET["page"]; //Para filtro page
         }
@@ -133,7 +141,7 @@ class productController extends baseController
 
         /* Aca viene una Query que pregunte cuantos elementos total
          me trae de el registro no por paginas con todos los filtros ya*/
-        $queryWithTotal = $productdatainstace->allforpagination($idcategoria,$search);
+        $queryWithTotal = $productdatainstace->allforpagination($idcategoria, $search);
         $dataproductforrender = $productdatainstace->all($pos, $idcategoria, $sort, $search, $numRegisPos); //Se usa en la vista
         $numCatTotal = count($queryWithTotal); // Total objetos
 

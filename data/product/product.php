@@ -13,7 +13,7 @@ class productdata extends baseController
         $filterQuerySearch = "";
 
         if(!empty($idcategoria)) $filterQueryCategoria =  " AND idcategoria = $idcategoria "; 
-        if(!empty($search)) $filterQuerySearch = " AND product.titulo LIKE $search ";
+        if(!empty($search)) $filterQuerySearch = " AND product.titulo LIKE '$search' ";
         
         $array = [];
         $conexion = $this->connect();

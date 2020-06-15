@@ -34,7 +34,7 @@ require_once "config/config.php";
             <span class="badge badge-info"><?php echo $categoriaunica["0"]->nombrecategoria; ?> </span>
         </div>
     <?php endif; ?>
-    <form action="<?php echo URL_BASE ?>product/all" method="POST">
+    <form action="<?php echo URL_BASE . "product/all" . $filtercategory . $filtersort . $filterpage ?>" method="POST">
         <div class="input-group col-xl-11 m-3 aling-self-start">
             <div class="input-group-prepend">
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Buscar</button>
@@ -55,6 +55,6 @@ require_once "config/config.php";
             <?php if ($page == $i) $active = "active" ?>
             <li class="page-item <?php echo $active ?>"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $i . $filtersort . $filtercategory ?>"><?php echo $i ?></a></li>
         <?php endfor ?>
-        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $next . $filtersort . $filtercategory ?>">Siguiente</a></li>
+        <li class="page-item"><a class="page-link" href="<?php echo URL_BASE . "product/all&page=" . $next . $filtersort . $filtercategory . $filtersearch?>">Siguiente</a></li>
     </ul>
 </nav>
